@@ -7,26 +7,29 @@ export interface Product {
   color: 'violet' | 'cyan' | 'green' | 'pink' | 'amber' | 'red';
   badge: '' | 'hot' | 'new' | 'sale';
   cats: string[];
+  stock: number;
+  rating: number;
+  reviews: number;
 }
 
 export const PRODUCTS: Product[] = [
-  { id: 'tornado-grape', name: 'Tornado 10000 Grožđe', emoji: '🍇', price: 22, puffs: '≈ 10 000 pušenja', color: 'violet', badge: 'hot', cats: ['vocni', 'ledeni'] },
-  { id: 'hawk-lubenica', name: 'Hawk Pro Lubenica Ice', emoji: '🍉', price: 18, puffs: '≈ 8 000 pušenja', color: 'cyan', badge: 'new', cats: ['vocni', 'ledeni'] },
-  { id: 'tornado-mango', name: 'Tornado Mango Breskva', emoji: '🥭', price: 22, puffs: '≈ 10 000 pušenja', color: 'green', badge: 'hot', cats: ['tropski', 'vocni'] },
-  { id: 'hawk-jagoda', name: 'Hawk Jagoda Kivi', emoji: '🍓', price: 18, puffs: '≈ 8 000 pušenja', color: 'pink', badge: '', cats: ['slatki', 'vocni'] },
-  { id: 'tornado-narandza', name: 'Tornado Narandža Citrus', emoji: '🍊', price: 20, puffs: '≈ 10 000 pušenja', color: 'amber', badge: 'sale', cats: ['vocni'] },
-  { id: 'hawk-mint', name: 'Hawk Cool Mint', emoji: '🌿', price: 18, puffs: '≈ 8 000 pušenja', color: 'cyan', badge: '', cats: ['mentol'] },
-  { id: 'tornado-cola', name: 'Tornado Cola Ice', emoji: '🥤', price: 20, puffs: '≈ 10 000 pušenja', color: 'red', badge: 'new', cats: ['ledeni', 'slatki'] },
-  { id: 'hawk-lychee', name: 'Hawk Lychee Mint', emoji: '🍈', price: 18, puffs: '≈ 8 000 pušenja', color: 'green', badge: '', cats: ['tropski', 'mentol'] },
-  { id: 'tornado-passion', name: 'Tornado Passion Fruit', emoji: '🌺', price: 22, puffs: '≈ 10 000 pušenja', color: 'pink', badge: '', cats: ['tropski'] },
-  { id: 'hawk-blueberry', name: 'Hawk Blueberry Sour', emoji: '🫐', price: 15, puffs: '≈ 8 000 pušenja', color: 'violet', badge: 'sale', cats: ['slatki', 'vocni'] },
-  { id: 'tornado-peach', name: 'Tornado Peach Ice', emoji: '🍑', price: 22, puffs: '≈ 10 000 pušenja', color: 'amber', badge: 'hot', cats: ['vocni', 'ledeni'] },
-  { id: 'hawk-menthol', name: 'Hawk Double Menthol', emoji: '❄️', price: 15, puffs: '≈ 8 000 pušenja', color: 'cyan', badge: '', cats: ['mentol', 'ledeni'] },
+  { id: 'tornado-grape', name: 'Tornado 10000 Grožđe', emoji: '🍇', price: 22, puffs: '≈ 10 000 pušenja', color: 'violet', badge: 'hot', cats: ['vocni', 'ledeni'], stock: 8, rating: 4.9, reviews: 234 },
+  { id: 'hawk-lubenica', name: 'Hawk Pro Lubenica Ice', emoji: '🍉', price: 18, puffs: '≈ 8 000 pušenja', color: 'cyan', badge: 'new', cats: ['vocni', 'ledeni'], stock: 23, rating: 4.7, reviews: 89 },
+  { id: 'tornado-mango', name: 'Tornado Mango Breskva', emoji: '🥭', price: 22, puffs: '≈ 10 000 pušenja', color: 'green', badge: 'hot', cats: ['tropski', 'vocni'], stock: 5, rating: 4.8, reviews: 312 },
+  { id: 'hawk-jagoda', name: 'Hawk Jagoda Kivi', emoji: '🍓', price: 18, puffs: '≈ 8 000 pušenja', color: 'pink', badge: '', cats: ['slatki', 'vocni'], stock: 31, rating: 4.5, reviews: 67 },
+  { id: 'tornado-narandza', name: 'Tornado Narandža Citrus', emoji: '🍊', price: 20, puffs: '≈ 10 000 pušenja', color: 'amber', badge: 'sale', cats: ['vocni'], stock: 12, rating: 4.6, reviews: 145 },
+  { id: 'hawk-mint', name: 'Hawk Cool Mint', emoji: '🌿', price: 18, puffs: '≈ 8 000 pušenja', color: 'cyan', badge: '', cats: ['mentol'], stock: 19, rating: 4.4, reviews: 98 },
+  { id: 'tornado-cola', name: 'Tornado Cola Ice', emoji: '🥤', price: 20, puffs: '≈ 10 000 pušenja', color: 'red', badge: 'new', cats: ['ledeni', 'slatki'], stock: 15, rating: 4.7, reviews: 56 },
+  { id: 'hawk-lychee', name: 'Hawk Lychee Mint', emoji: '🍈', price: 18, puffs: '≈ 8 000 pušenja', color: 'green', badge: '', cats: ['tropski', 'mentol'], stock: 27, rating: 4.3, reviews: 42 },
+  { id: 'tornado-passion', name: 'Tornado Passion Fruit', emoji: '🌺', price: 22, puffs: '≈ 10 000 pušenja', color: 'pink', badge: '', cats: ['tropski'], stock: 9, rating: 4.6, reviews: 78 },
+  { id: 'hawk-blueberry', name: 'Hawk Blueberry Sour', emoji: '🫐', price: 15, puffs: '≈ 8 000 pušenja', color: 'violet', badge: 'sale', cats: ['slatki', 'vocni'], stock: 6, rating: 4.8, reviews: 203 },
+  { id: 'tornado-peach', name: 'Tornado Peach Ice', emoji: '🍑', price: 22, puffs: '≈ 10 000 pušenja', color: 'amber', badge: 'hot', cats: ['vocni', 'ledeni'], stock: 3, rating: 4.9, reviews: 189 },
+  { id: 'hawk-menthol', name: 'Hawk Double Menthol', emoji: '❄️', price: 15, puffs: '≈ 8 000 pušenja', color: 'cyan', badge: '', cats: ['mentol', 'ledeni'], stock: 22, rating: 4.5, reviews: 134 },
 ];
 
 export const BADGE_MAP: Record<string, { cls: string; txt: string }> = {
-  hot: { cls: 'bg-primary text-primary-foreground', txt: 'Hot' },
-  new: { cls: 'bg-accent text-accent-foreground', txt: 'Novo' },
+  hot: { cls: 'bg-primary text-primary-foreground', txt: '🔥 Hot' },
+  new: { cls: 'bg-accent text-accent-foreground', txt: '✨ Novo' },
   sale: { cls: 'bg-destructive text-destructive-foreground', txt: '-10%' },
 };
 
@@ -82,4 +85,13 @@ export const MARQUEE_ITEMS = [
   'Tornado 10000', 'Hawk Pro Max', 'Watermelon Ice', 'Mango Peach',
   'Blueberry Sour', 'Lychee Mint', 'Grape Ice', 'Cool Mint',
   'Passion Fruit', 'Cola Ice',
+];
+
+export const CUSTOMER_REVIEWS = [
+  { name: 'Marko P.', city: 'Beograd', rating: 5, text: 'Najbolji ukus koji sam probao! Tornado Grožđe je fenomenalan. Dostava stigla za 20h.', product: 'Tornado 10000 Grožđe', emoji: '🍇' },
+  { name: 'Ana S.', city: 'Novi Sad', rating: 5, text: 'Naručujem već treći put. Uvek originalni proizvodi, pakovanje diskretno. Preporuka!', product: 'Hawk Pro Lubenica Ice', emoji: '🍉' },
+  { name: 'Stefan M.', city: 'Niš', rating: 4, text: 'Brza dostava, plaćanje pouzećem — bez problema. Hawk Mint je osvežavajuć.', product: 'Hawk Cool Mint', emoji: '🌿' },
+  { name: 'Jelena K.', city: 'Kragujevac', rating: 5, text: 'Cene su fer, kvalitet odličan. Mango Breskva je savršen za leto!', product: 'Tornado Mango Breskva', emoji: '🥭' },
+  { name: 'Nikola D.', city: 'Subotica', rating: 5, text: 'Sve je originalno, QR verifikacija radi. Konačno pouzdan prodavac u Srbiji.', product: 'Tornado Peach Ice', emoji: '🍑' },
+  { name: 'Milica R.', city: 'Pančevo', rating: 4, text: 'Blueberry Sour po ceni od 15€ je neverovatna ponuda. Ukus traje dugo.', product: 'Hawk Blueberry Sour', emoji: '🫐' },
 ];

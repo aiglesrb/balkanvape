@@ -18,7 +18,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[500] h-[66px] flex items-center px-4 md:px-8 gap-4 bg-background/82 backdrop-blur-xl border-b border-border">
+      {/* Nav sits below trust banner */}
+      <nav className="fixed top-[28px] left-0 right-0 z-[500] h-[62px] flex items-center px-4 md:px-8 gap-4 bg-background/85 backdrop-blur-xl border-b border-border">
         <Link to="/" className="text-lg font-black tracking-wide shrink-0 select-none">
           VAPE <span className="text-primary">BALKAN</span>
         </Link>
@@ -84,8 +85,8 @@ export default function Navbar() {
             initial={{ y: '-110%' }}
             animate={{ y: 0 }}
             exit={{ y: '-110%' }}
-            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed top-[66px] left-0 right-0 z-[490] bg-background/97 backdrop-blur-xl border-b border-border"
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed top-[90px] left-0 right-0 z-[490] bg-background/97 backdrop-blur-xl border-b border-border"
           >
             {NAV_ITEMS.map(item => (
               <Link
