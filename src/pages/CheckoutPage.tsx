@@ -53,7 +53,7 @@ export default function CheckoutPage() {
                       animate={{ opacity: 1, x: 0 }}
                       className="flex items-center gap-4 bg-card border border-border rounded-2xl p-4"
                     >
-                      <span className="text-3xl w-12 text-center shrink-0">{item.emoji}</span>
+                      <img src={item.image} alt={item.name} className="w-12 h-12 object-contain shrink-0 rounded-lg bg-secondary p-1" />
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-semibold">{item.name}</div>
                         <div className="text-[11px] text-muted-foreground mt-0.5">{item.puffs}</div>
@@ -81,7 +81,7 @@ export default function CheckoutPage() {
                     <div className="flex gap-2 overflow-x-auto pb-1">
                       {upsellProducts.map(p => (
                         <button key={p.id} onClick={() => addToCart(p)} className="flex items-center gap-2 shrink-0 bg-background border border-border rounded-xl px-3 py-2 hover:border-foreground/20 transition-colors">
-                          <span className="text-lg">{p.emoji}</span>
+                          <img src={p.image} alt={p.name} className="w-8 h-8 object-contain" />
                           <div className="text-left">
                             <div className="text-[11px] font-semibold">{p.name}</div>
                             <div className="text-[10px] text-muted-foreground">{p.price}€</div>

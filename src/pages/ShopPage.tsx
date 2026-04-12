@@ -52,7 +52,7 @@ export default function ShopPage() {
                   : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
               }`}
             >
-              {cat.emoji && `${cat.emoji} `}{cat.label}
+              {cat.label}
             </button>
           ))}
 
