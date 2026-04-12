@@ -29,7 +29,7 @@ export default function ProductCard({ product, index = 0 }: Props) {
       className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
     >
       {/* Image area */}
-      <div className="relative h-52 bg-secondary flex items-center justify-center overflow-hidden">
+      <div className="relative h-64 bg-secondary flex items-center justify-center overflow-hidden p-6">
         {badge && (
           <span className={`absolute top-3 left-3 z-10 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full ${badge.cls}`}>
             {badge.label}
@@ -40,13 +40,18 @@ export default function ProductCard({ product, index = 0 }: Props) {
             {product.stock} left
           </span>
         )}
-        <span className="text-7xl transition-transform duration-500 group-hover:scale-110">
-          {product.emoji}
-        </span>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-full w-auto max-w-full object-contain transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
       </div>
 
       {/* Body */}
       <div className="p-5">
+        <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5">{product.brand}</div>
+
         <div className="flex items-center gap-1 mb-2">
           {[...Array(5)].map((_, i) => (
             <Star key={i} size={11} className={i < Math.floor(product.rating) ? 'fill-foreground text-foreground' : 'text-border'} />
@@ -55,14 +60,20 @@ export default function ProductCard({ product, index = 0 }: Props) {
         </div>
 
         <h3 className="text-sm font-semibold tracking-tight leading-snug mb-1">{product.name}</h3>
-        <p className="text-[12px] text-muted-foreground mb-4">{product.puffs}</p>
+
+        <div className="flex items-center gap-3 text-[11px] text-muted-foreground mb-4">
+          <span>{product.puffs}</span>
+          {product.battery && <span>· {product.battery}</span>}
+          {product.capacity && <span>· {product.capacity}</span>}
+        </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-baseline gap-1">
+          <div className="flex items-baseline gap-1.5">
             <span className="text-lg font-bold">{product.price}€</span>
-            {product.badge === 'sale' && (
-              <span className="text-xs text-muted-foreground line-through">{Math.round(product.price / 0.9)}€</span>
+            {product.originalPrice && (
+              <span className="text-xs text-muted-foreground line-through">{product.originalPrice}€</span>
             )}
+            <span className="text-[10px] text-muted-foreground">/unit</span>
           </div>
           <button
             onClick={handleAdd}
