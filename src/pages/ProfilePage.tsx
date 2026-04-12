@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const handleRegister = () => { toast.success('Nalog kreiran!'); setTab('login'); };
 
   return (
-    <main className="pt-[66px] min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
+    <main className="pt-[90px] min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
       {/* Atmosphere */}
       <div className="absolute inset-0" style={{
         background: 'radial-gradient(ellipse 55% 55% at 28% 38%, hsl(264 100% 67% / 0.12) 0%, transparent 65%), radial-gradient(ellipse 45% 45% at 72% 62%, hsl(186 100% 50% / 0.09) 0%, transparent 65%)',
