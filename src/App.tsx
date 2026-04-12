@@ -20,8 +20,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <CartProvider>
-          <TrustBanner />
           <Navbar />
+          <TrustBanner />
           <CartToast />
           <Routes>
             <Route path="/" element={<HomePage />} />
