@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Product, BADGE_MAP, COLOR_STYLES } from '@/lib/products';
+import { Product, BADGE_MAP } from '@/lib/products';
 import { useCart } from '@/contexts/CartContext';
-import { Star, Flame, ShoppingCart } from 'lucide-react';
+import { Star, Plus, Check } from 'lucide-react';
 
 interface Props {
   product: Product;
@@ -12,9 +12,7 @@ interface Props {
 export default function ProductCard({ product, index = 0 }: Props) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
-  const styles = COLOR_STYLES[product.color];
   const badge = product.badge ? BADGE_MAP[product.badge] : null;
-  const lowStock = product.stock <= 10;
 
   const handleAdd = () => {
     addToCart(product);
@@ -24,84 +22,65 @@ export default function ProductCard({ product, index = 0 }: Props) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.45, delay: index * 0.06 }}
-      whileHover={{ y: -8, scale: 1.012 }}
-      className={`bg-card border border-border rounded-lg overflow-hidden cursor-pointer relative group transition-shadow duration-300 ${styles.hoverShadow}`}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
     >
-      {/* Glass glint */}
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-br from-foreground/[0.06] to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-      {/* Badge */}
-      {badge && (
-        <div className={`absolute top-3 right-3 z-[3] font-mono text-[0.52rem] font-bold tracking-wider uppercase px-2 py-0.5 rounded ${badge.cls} ${product.badge === 'hot' ? 'shadow-[0_0_10px_hsl(var(--glow-violet))]' : ''}`}>
-          {badge.txt}
-        </div>
-      )}
-
-      {/* Low stock FOMO badge */}
-      {lowStock && (
-        <div className="absolute top-3 left-3 z-[3] flex items-center gap-1 font-mono text-[0.5rem] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-neon-amber/20 border border-neon-amber/30 text-neon-amber">
-          <Flame size={10} />
-          Još {product.stock} kom!
-        </div>
-      )}
-
-      {/* Visual area */}
-      <div className={`h-[180px] relative overflow-hidden flex items-center justify-center ${styles.visual}`}>
-        <div className={`absolute w-[100px] h-[100px] rounded-full blur-[25px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.glow}`} />
-        <span className="relative z-[1] text-[4.2rem] not-italic block drop-shadow-[0_4px_14px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-[1.15] group-hover:-translate-y-1">
+      {/* Image area */}
+      <div className="relative h-52 bg-secondary flex items-center justify-center overflow-hidden">
+        {badge && (
+          <span className={`absolute top-3 left-3 z-10 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full ${badge.cls}`}>
+            {badge.label}
+          </span>
+        )}
+        {product.stock <= 10 && (
+          <span className="absolute top-3 right-3 z-10 text-[10px] font-medium text-muted-foreground bg-background/80 backdrop-blur-sm px-2 py-1 rounded-full">
+            {product.stock} left
+          </span>
+        )}
+        <span className="text-7xl transition-transform duration-500 group-hover:scale-110">
           {product.emoji}
         </span>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
       </div>
 
       {/* Body */}
-      <div className="p-4 relative z-[2]">
-        <div className={`font-mono text-[0.56rem] font-bold tracking-widest uppercase mb-1 ${styles.flavor}`}>
-          {product.cats[0]}
-        </div>
-        <h3 className="text-sm font-bold tracking-tight leading-tight">{product.name}</h3>
-        
-        {/* Rating */}
-        <div className="flex items-center gap-1.5 mt-1.5">
-          <div className="flex items-center gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={10} className={i < Math.floor(product.rating) ? 'fill-neon-amber text-neon-amber' : 'text-muted-foreground/30'} />
-            ))}
-          </div>
-          <span className="font-mono text-[0.52rem] text-muted-foreground">{product.rating} ({product.reviews})</span>
+      <div className="p-5">
+        <div className="flex items-center gap-1 mb-2">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} size={11} className={i < Math.floor(product.rating) ? 'fill-foreground text-foreground' : 'text-border'} />
+          ))}
+          <span className="text-[11px] text-muted-foreground ml-1">({product.reviews})</span>
         </div>
 
-        <p className="font-mono text-[0.58rem] text-muted-foreground mt-1">
-          {product.puffs} · 20mg nic/ml
-        </p>
-        
-        <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
-          <div>
-            <span className="text-xl font-black tracking-tight">
-              {product.price}<small className="text-[0.65em] font-semibold opacity-65">€</small>
-            </span>
+        <h3 className="text-sm font-semibold tracking-tight leading-snug mb-1">{product.name}</h3>
+        <p className="text-[12px] text-muted-foreground mb-4">{product.puffs}</p>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-baseline gap-1">
+            <span className="text-lg font-bold">{product.price}€</span>
             {product.badge === 'sale' && (
-              <span className="ml-2 text-xs text-muted-foreground line-through">{Math.round(product.price / 0.9)}€</span>
+              <span className="text-xs text-muted-foreground line-through">{Math.round(product.price / 0.9)}€</span>
             )}
           </div>
           <button
-            onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-            className={`flex items-center gap-1.5 font-mono text-[0.56rem] font-bold tracking-wider uppercase px-3 py-2.5 min-h-[40px] rounded-md transition-all ${
+            onClick={handleAdd}
+            className={`flex items-center gap-1.5 text-xs font-semibold px-4 py-2.5 rounded-full transition-all ${
               added
-                ? 'text-accent border border-accent/40 bg-accent/[0.08]'
-                : 'bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-[0_2px_12px_hsl(var(--glow-violet))] hover:shadow-[0_4px_20px_hsl(var(--glow-violet))] hover:-translate-y-0.5'
+                ? 'bg-accent/10 text-accent'
+                : 'bg-primary text-primary-foreground hover:opacity-90 active:scale-95'
             }`}
           >
             {added ? (
-              '✓ Dodato!'
+              <>
+                <Check size={14} />
+                Added
+              </>
             ) : (
               <>
-                <ShoppingCart size={12} />
-                Kupi
+                <Plus size={14} />
+                Add to cart
               </>
             )}
           </button>

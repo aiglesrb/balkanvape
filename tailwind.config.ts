@@ -14,8 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,13 +50,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        neon: {
-          violet: "hsl(var(--primary))",
-          cyan: "hsl(var(--secondary))",
-          green: "hsl(var(--accent))",
-          amber: "hsl(var(--amber))",
-          red: "hsl(var(--red))",
-        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -73,7 +65,8 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        xl: "1.75rem",
+        xl: "1rem",
+        "2xl": "1.25rem",
       },
       keyframes: {
         "accordion-down": {
@@ -89,10 +82,6 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "marquee": "marquee-scroll 30s linear infinite",
-        "pulse-dot": "pulse-dot 2s ease-in-out infinite",
-        "vapor": "vapor-rise 12s ease-in-out infinite",
-        "device-float": "device-float 10s ease-in-out infinite alternate",
-        "atm-drift": "atm-drift 18s ease-in-out infinite alternate",
       },
     },
   },
