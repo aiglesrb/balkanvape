@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/contexts/CartContext";
+import TrustBanner from "@/components/TrustBanner";
 import Navbar from "@/components/Navbar";
 import CartToast from "@/components/Toast";
 import HomePage from "@/pages/HomePage";
@@ -19,6 +20,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <CartProvider>
+          <TrustBanner />
           <Navbar />
           <CartToast />
           <Routes>
