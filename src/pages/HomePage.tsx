@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Zap, Droplets, Battery, Truck, Star } from 'lucide-react';
+import { ArrowRight, Zap, Droplets, Battery, Truck, Star, Banknote, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import { PRODUCTS } from '@/lib/products';
@@ -30,32 +30,38 @@ function Hero() {
       >
         <div className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground bg-secondary rounded-full px-4 py-1.5 mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-          Premium Vape · Serbia · 12k+ customers
+          Premium Vape · Srbija · 12k+ kupaca
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] mb-6">
-          Vape.
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] mb-4">
+          Najjači puffovi
           <br />
-          <span className="text-muted-foreground">Reinvented.</span>
+          <span className="text-muted-foreground">u Srbiji.</span>
         </h1>
 
-        <p className="text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 mb-10">
-          Premium flavors, authentic products, delivered to your door in 24 hours. Starting from 15€.
+        <p className="text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 mb-5">
+          16.000+ udisaja. Autentični proizvodi, dostava na vrata za 24h.
         </p>
+
+        {/* COD trust badge */}
+        <div className="inline-flex items-center gap-2 text-xs font-medium text-accent bg-accent/10 rounded-full px-4 py-2 mb-8">
+          <Banknote size={14} />
+          Plaćanje pouzećem — Sigurna kupovina
+        </div>
 
         <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
           <Link
             to="/shop"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold text-sm px-7 py-3.5 rounded-full hover:opacity-90 active:scale-[0.98] transition-all"
           >
-            Shop now
+            Kupuj sada
             <ArrowRight size={16} />
           </Link>
           <Link
             to="/shop"
             className="inline-flex items-center gap-2 bg-secondary text-foreground font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-border transition-colors"
           >
-            Explore collection
+            Istraži kolekciju
           </Link>
         </div>
       </motion.div>
@@ -68,27 +74,25 @@ function Hero() {
         transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="relative z-10"
       >
-        {/* Glow behind product */}
         <div className="absolute inset-0 -z-10 blur-[80px] opacity-30 bg-accent rounded-full scale-75" />
         
         <motion.img
           src={heroVape}
-          alt="Premium Vape Device - Cherry Ice"
+          alt="Premium Vape Device"
           className="w-[280px] md:w-[340px] lg:w-[380px] h-auto drop-shadow-2xl"
           whileHover={{ rotateY: -12, rotateX: 5, scale: 1.04 }}
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
           style={{ transformStyle: 'preserve-3d' }}
         />
 
-        {/* Floating badge */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
           className="absolute -right-4 top-1/4 bg-background border border-border rounded-xl px-3 py-2 shadow-lg"
         >
-          <div className="text-[10px] text-muted-foreground">Battery</div>
-          <div className="text-sm font-bold">10,000 puffs</div>
+          <div className="text-[10px] text-muted-foreground">Kapacitet</div>
+          <div className="text-sm font-bold">16,000 puffs</div>
         </motion.div>
 
         <motion.div
@@ -97,8 +101,8 @@ function Hero() {
           transition={{ delay: 1 }}
           className="absolute -left-4 bottom-1/3 bg-background border border-border rounded-xl px-3 py-2 shadow-lg"
         >
-          <div className="text-[10px] text-muted-foreground">Flavor</div>
-          <div className="text-sm font-bold">Cherry Ice 🍒</div>
+          <div className="text-[10px] text-muted-foreground">Punjenje</div>
+          <div className="text-sm font-bold">USB-C ⚡</div>
         </motion.div>
       </motion.div>
     </section>
@@ -107,18 +111,18 @@ function Hero() {
 
 function Features() {
   const features = [
-    { icon: Droplets, title: '50+ Flavors', desc: 'From fruity to menthol, every taste perfected.' },
-    { icon: Battery, title: 'Long lasting', desc: 'Up to 10,000 puffs per device.' },
-    { icon: Zap, title: 'Smooth draw', desc: 'Engineered for the perfect pull, every time.' },
-    { icon: Truck, title: '24h Delivery', desc: 'Fast, discreet shipping across Serbia.' },
+    { icon: Droplets, title: '50+ ukusa', desc: 'Od voćnih do mentol — svaki ukus savršen.' },
+    { icon: Battery, title: 'Dugotrajna', desc: 'Do 18,000 udisaja po uređaju.' },
+    { icon: Zap, title: 'Glatko povlačenje', desc: 'Dizajnirano za savršen dim, svaki put.' },
+    { icon: Truck, title: 'Dostava 24h', desc: 'Brza, diskretna isporuka širom Srbije.' },
   ];
 
   return (
     <section className="py-20 px-6 border-t border-border">
       <div className="max-w-5xl mx-auto">
         <motion.div {...fade} className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Designed for perfection.</h2>
-          <p className="text-muted-foreground text-base">Every detail matters.</p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Dizajnirano za savršenstvo.</h2>
+          <p className="text-muted-foreground text-base">Svaki detalj je bitan.</p>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((f, i) => (
@@ -138,10 +142,10 @@ function Features() {
 
 function Stats() {
   const stats = [
-    { value: '50+', label: 'Flavors' },
-    { value: '12k+', label: 'Customers' },
-    { value: '24h', label: 'Delivery' },
-    { value: '4.8', label: 'Rating', icon: true },
+    { value: '50+', label: 'Ukusa' },
+    { value: '12k+', label: 'Kupaca' },
+    { value: '24h', label: 'Dostava' },
+    { value: '4.8', label: 'Ocena', icon: true },
   ];
   return (
     <section className="py-16 px-6 bg-secondary">
@@ -167,11 +171,11 @@ function FeaturedProducts() {
       <div className="max-w-5xl mx-auto">
         <motion.div {...fade} className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Bestsellers.</h2>
-            <p className="text-muted-foreground text-sm">The most popular picks this week.</p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Najprodavanije.</h2>
+            <p className="text-muted-foreground text-sm">Najtraženiji proizvodi ove nedelje.</p>
           </div>
           <Link to="/shop" className="hidden md:inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            View all <ArrowRight size={14} />
+            Vidi sve <ArrowRight size={14} />
           </Link>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -179,7 +183,7 @@ function FeaturedProducts() {
         </div>
         <div className="text-center mt-10 md:hidden">
           <Link to="/shop" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">
-            View all products <ArrowRight size={14} />
+            Vidi sve proizvode <ArrowRight size={14} />
           </Link>
         </div>
       </div>
@@ -189,11 +193,11 @@ function FeaturedProducts() {
 
 function TrustStrip() {
   const items = [
-    { icon: '🔒', label: 'Secure payment', sub: 'SSL encrypted' },
-    { icon: '📦', label: 'Discreet packaging', sub: 'Plain box, no labels' },
-    { icon: '✅', label: 'EU compliant', sub: 'Certified products' },
-    { icon: '💬', label: '24/7 Support', sub: 'Viber · Instagram' },
-    { icon: '🔄', label: 'Easy returns', sub: 'Within 14 days' },
+    { icon: '🔒', label: 'Sigurno plaćanje', sub: 'SSL zaštita' },
+    { icon: '📦', label: 'Diskretno pakovanje', sub: 'Bez oznaka' },
+    { icon: '✅', label: 'EU usklađenost', sub: 'Sertifikovani proizvodi' },
+    { icon: '💬', label: '24/7 Podrška', sub: 'WhatsApp · Viber' },
+    { icon: '💵', label: 'Plaćanje pouzećem', sub: 'Bez rizika' },
   ];
   return (
     <section className="py-14 px-6 border-t border-border">
@@ -216,10 +220,10 @@ function PromoBanner() {
   return (
     <section className="py-16 px-6">
       <motion.div {...fade} className="max-w-3xl mx-auto bg-secondary rounded-2xl p-10 md:p-14 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">Buy 2, get 10% off.</h2>
-        <p className="text-muted-foreground text-sm mb-6">Plus free shipping on orders over 30€.</p>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">Kupi 2, uštedi 10%.</h2>
+        <p className="text-muted-foreground text-sm mb-6">+ besplatna dostava za porudžbine preko 30€.</p>
         <Link to="/shop" className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold text-sm px-7 py-3.5 rounded-full hover:opacity-90 transition-opacity">
-          Shop now <ArrowRight size={16} />
+          Kupuj sada <ArrowRight size={16} />
         </Link>
       </motion.div>
     </section>
