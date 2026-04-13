@@ -20,6 +20,8 @@ export interface Product {
   brand: string;
   battery?: string;
   capacity?: string;
+  nicotine?: string;
+  rechargeable?: boolean;
 }
 
 export const PRODUCTS: Product[] = [
@@ -37,6 +39,8 @@ export const PRODUCTS: Product[] = [
     brand: 'JNR',
     battery: '850 mAh',
     capacity: '22 ml',
+    nicotine: '2%',
+    rechargeable: true,
   },
   {
     id: 'jnr-falcon-x-18k',
@@ -52,6 +56,8 @@ export const PRODUCTS: Product[] = [
     brand: 'JNR',
     battery: '900 mAh',
     capacity: '25 ml',
+    nicotine: '2%',
+    rechargeable: true,
   },
   {
     id: 'adalya-16k',
@@ -67,6 +73,8 @@ export const PRODUCTS: Product[] = [
     brand: 'Adalya',
     battery: '850 mAh',
     capacity: '22 ml',
+    nicotine: '2%',
+    rechargeable: true,
   },
   {
     id: 'randm-digital-box-12k',
@@ -82,6 +90,8 @@ export const PRODUCTS: Product[] = [
     brand: 'RandM',
     battery: '650 mAh',
     capacity: '18 ml',
+    nicotine: '2%',
+    rechargeable: true,
   },
   {
     id: 'randm-tornado-10k',
@@ -97,6 +107,8 @@ export const PRODUCTS: Product[] = [
     brand: 'RandM',
     battery: '600 mAh',
     capacity: '20 ml',
+    nicotine: '2%',
+    rechargeable: false,
   },
   {
     id: 'adalya-10k',
@@ -112,17 +124,19 @@ export const PRODUCTS: Product[] = [
     brand: 'Adalya',
     battery: '600 mAh',
     capacity: '18 ml',
+    nicotine: '2%',
+    rechargeable: false,
   },
 ];
 
 export const BADGE_MAP: Record<string, { label: string; cls: string }> = {
   hot: { label: 'Bestseller', cls: 'bg-foreground text-background' },
-  new: { label: 'New', cls: 'bg-accent text-accent-foreground' },
-  sale: { label: 'Promo', cls: 'bg-destructive text-destructive-foreground' },
+  new: { label: 'Novo', cls: 'bg-accent text-accent-foreground' },
+  sale: { label: 'Akcija', cls: 'bg-destructive text-destructive-foreground' },
 };
 
 export const CATEGORIES = [
-  { id: 'all', label: 'All' },
+  { id: 'all', label: 'Sve' },
   { id: 'jnr', label: 'JNR' },
   { id: 'randm', label: 'RandM' },
   { id: 'adalya', label: 'Adalya' },
@@ -131,16 +145,16 @@ export const CATEGORIES = [
 ];
 
 export const CUSTOMER_REVIEWS = [
-  { name: 'Marko P.', city: 'Belgrade', rating: 5, text: 'The JNR Falcon 16K is incredible — amazing flavor that lasts forever. Best puff I\'ve tried.', product: 'JNR Falcon 16000', emoji: '🔥' },
-  { name: 'Ana S.', city: 'Novi Sad', rating: 5, text: 'Third order already. Always authentic products, discreet packaging. Highly recommended!', product: 'Adalya 16000', emoji: '💨' },
-  { name: 'Stefan M.', city: 'Niš', rating: 4, text: 'Fast delivery, cash on delivery — no issues. The RandM Tornado is solid and reliable.', product: 'RandM Tornado 10000', emoji: '⚡' },
-  { name: 'Jelena K.', city: 'Kragujevac', rating: 5, text: 'Fair prices, excellent quality. The Falcon X 18K lasts incredibly long!', product: 'JNR Falcon X 18000', emoji: '✨' },
-  { name: 'Nikola D.', city: 'Subotica', rating: 5, text: 'Everything is authentic, QR verification works. Finally a reliable seller in Serbia.', product: 'RandM Digital Box 12000', emoji: '✅' },
-  { name: 'Milica R.', city: 'Pančevo', rating: 4, text: 'The Adalya 10K at this price is an incredible deal. Great flavors.', product: 'Adalya Puff 10000', emoji: '🍇' },
+  { name: 'Marko P.', city: 'Beograd', rating: 5, text: 'JNR Falcon 16K je neverovatna — savršen ukus koji traje zauvek. Najbolji puff koji sam probao.', product: 'JNR Falcon 16000', emoji: '🔥' },
+  { name: 'Ana S.', city: 'Novi Sad', rating: 5, text: 'Treća porudžbina već. Uvek autentični proizvodi, diskretno pakovanje. Preporučujem!', product: 'Adalya 16000', emoji: '💨' },
+  { name: 'Stefan M.', city: 'Niš', rating: 4, text: 'Brza dostava, plaćanje pouzećem — bez problema. RandM Tornado je solidan i pouzdan.', product: 'RandM Tornado 10000', emoji: '⚡' },
+  { name: 'Jelena K.', city: 'Kragujevac', rating: 5, text: 'Fer cene, odličan kvalitet. Falcon X 18K traje neverovatno dugo!', product: 'JNR Falcon X 18000', emoji: '✨' },
+  { name: 'Nikola D.', city: 'Subotica', rating: 5, text: 'Sve je autentično, QR verifikacija radi. Konačno pouzdan prodavac u Srbiji.', product: 'RandM Digital Box 12000', emoji: '✅' },
+  { name: 'Milica R.', city: 'Pančevo', rating: 4, text: 'Adalya 10K po ovoj ceni je neverovatna prilika. Odlični ukusi.', product: 'Adalya Puff 10000', emoji: '🍇' },
 ];
 
 export const MARQUEE_ITEMS = [
   'JNR Falcon 16K', 'JNR Falcon X 18K', 'Adalya 16K', 'RandM Digital Box 12K',
   'RandM Tornado 10K', 'Adalya 10K', '16,000 puffs', '18,000 puffs',
-  'Premium Vape', 'Fast Delivery',
+  'Premium Vape', 'Brza Dostava',
 ];
