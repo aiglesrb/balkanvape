@@ -22,9 +22,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <CartProvider>
+          <AgeVerification />
           <Navbar />
           <TrustBanner />
           <CartToast />
+          <WhatsAppButton />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/shop" element={<ShopPage />} />
