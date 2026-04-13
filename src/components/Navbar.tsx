@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-6 md:px-10 bg-background/80 backdrop-blur-xl border-b border-border">
+      <nav className="fixed top-[34px] left-0 right-0 z-50 h-14 flex items-center px-6 md:px-10 bg-background/80 backdrop-blur-xl border-b border-border">
         <Link to="/" className="text-base font-bold tracking-tight shrink-0 mr-10">
           VAPE BALKAN
         </Link>
@@ -73,7 +73,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-14 left-0 right-0 z-40 bg-background border-b border-border py-4 px-6"
+            className="fixed top-[calc(34px+3.5rem)] left-0 right-0 z-40 bg-background border-b border-border py-4 px-6"
           >
             {NAV_ITEMS.map(item => (
               <Link
