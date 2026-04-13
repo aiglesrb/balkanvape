@@ -6,6 +6,8 @@ import { CartProvider } from "@/contexts/CartContext";
 import TrustBanner from "@/components/TrustBanner";
 import Navbar from "@/components/Navbar";
 import CartToast from "@/components/Toast";
+import AgeVerification from "@/components/AgeVerification";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import HomePage from "@/pages/HomePage";
 import ShopPage from "@/pages/ShopPage";
 import ProfilePage from "@/pages/ProfilePage";
