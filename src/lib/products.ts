@@ -22,7 +22,19 @@ export interface Product {
   capacity?: string;
   nicotine?: string;
   rechargeable?: boolean;
+  flavors: string[];
 }
+
+export const FLAVORS = [
+  { id: 'all-flavors', label: 'Svi ukusi', emoji: '🌈' },
+  { id: 'mentol', label: 'Mentol', emoji: '🧊' },
+  { id: 'voćni', label: 'Voćni', emoji: '🍇' },
+  { id: 'tropski', label: 'Tropski', emoji: '🥭' },
+  { id: 'bobičasti', label: 'Bobičasti', emoji: '🫐' },
+  { id: 'citrus', label: 'Citrus', emoji: '🍋' },
+  { id: 'slatki', label: 'Slatki', emoji: '🍬' },
+  { id: 'duvan', label: 'Duvan', emoji: '🍂' },
+];
 
 export const PRODUCTS: Product[] = [
   {
