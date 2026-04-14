@@ -20,20 +20,20 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20 px-6 py-20 overflow-hidden">
-      {/* Text */}
+    <section ref={ref} className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-0 px-6 lg:px-16 py-20 overflow-hidden">
+      {/* Text - Left side */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="max-w-lg text-center lg:text-left z-10"
+        className="max-w-xl text-center lg:text-left z-10 lg:flex-1"
       >
         <div className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground bg-secondary rounded-full px-4 py-1.5 mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-accent" />
           Premium Vape · Srbija · 12k+ kupaca
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] mb-4">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] mb-5">
           Najjači puffovi
           <br />
           <span className="text-muted-foreground">u Srbiji.</span>
@@ -66,21 +66,19 @@ function Hero() {
         </div>
       </motion.div>
 
-      {/* 3D Product Image */}
+      {/* Product Image - Right side, larger */}
       <motion.div
         style={{ y, rotateX, rotateY, scale, opacity, perspective: 1200 }}
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="relative z-10"
+        className="relative z-10 lg:flex-1 flex justify-center lg:justify-end"
       >
-        <div className="absolute inset-0 -z-10 blur-[80px] opacity-30 bg-accent rounded-full scale-75" />
-        
         <motion.img
           src={heroVape}
-          alt="Premium Vape Device"
-          className="w-[280px] md:w-[340px] lg:w-[380px] h-auto drop-shadow-2xl"
-          whileHover={{ rotateY: -12, rotateX: 5, scale: 1.04 }}
+          alt="Premium Vape Devices Collection"
+          className="w-[320px] md:w-[420px] lg:w-[520px] xl:w-[580px] h-auto drop-shadow-2xl"
+          whileHover={{ rotateY: -6, rotateX: 3, scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
           style={{ transformStyle: 'preserve-3d' }}
         />
@@ -89,19 +87,18 @@ function Hero() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
-          className="absolute -right-4 top-1/4 bg-background border border-border rounded-xl px-3 py-2 shadow-lg"
+          className="absolute right-0 lg:-right-2 top-1/4 bg-background border border-border rounded-xl px-4 py-2.5 shadow-lg"
         >
-          <div className="text-[10px] text-muted-foreground">Kapacitet</div>
-          <div className="text-sm font-bold">16,000 puffs</div>
+          <div className="text-sm font-bold">16,000 Puffs</div>
+          <div className="text-[10px] text-muted-foreground">(unapređen)</div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1 }}
-          className="absolute -left-4 bottom-1/3 bg-background border border-border rounded-xl px-3 py-2 shadow-lg"
+          className="absolute left-4 lg:left-8 top-1/3 bg-background border border-border rounded-xl px-4 py-2.5 shadow-lg"
         >
-          <div className="text-[10px] text-muted-foreground">Punjenje</div>
           <div className="text-sm font-bold">USB-C ⚡</div>
         </motion.div>
       </motion.div>
