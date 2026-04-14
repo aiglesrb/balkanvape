@@ -53,6 +53,7 @@ export const PRODUCTS: Product[] = [
     capacity: '22 ml',
     nicotine: '2%',
     rechargeable: true,
+    flavors: ['mentol', 'voćni', 'tropski', 'bobičasti'],
   },
   {
     id: 'jnr-falcon-x-18k',
@@ -70,6 +71,7 @@ export const PRODUCTS: Product[] = [
     capacity: '25 ml',
     nicotine: '2%',
     rechargeable: true,
+    flavors: ['mentol', 'tropski', 'citrus', 'slatki'],
   },
   {
     id: 'adalya-16k',
@@ -87,6 +89,7 @@ export const PRODUCTS: Product[] = [
     capacity: '22 ml',
     nicotine: '2%',
     rechargeable: true,
+    flavors: ['voćni', 'bobičasti', 'slatki', 'duvan'],
   },
   {
     id: 'randm-digital-box-12k',
@@ -104,6 +107,7 @@ export const PRODUCTS: Product[] = [
     capacity: '18 ml',
     nicotine: '2%',
     rechargeable: true,
+    flavors: ['mentol', 'citrus', 'tropski'],
   },
   {
     id: 'randm-tornado-10k',
@@ -121,6 +125,7 @@ export const PRODUCTS: Product[] = [
     capacity: '20 ml',
     nicotine: '2%',
     rechargeable: false,
+    flavors: ['voćni', 'mentol', 'bobičasti', 'slatki'],
   },
   {
     id: 'adalya-10k',
@@ -138,6 +143,7 @@ export const PRODUCTS: Product[] = [
     capacity: '18 ml',
     nicotine: '2%',
     rechargeable: false,
+    flavors: ['tropski', 'citrus', 'duvan', 'voćni'],
   },
 ];
 
