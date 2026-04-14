@@ -69,6 +69,30 @@ export default function ShopPage() {
           </div>
         </motion.div>
 
+        {/* Flavor filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="flex items-center gap-2 flex-wrap mb-8"
+        >
+          <span className="text-xs font-semibold text-muted-foreground mr-1">Ukus:</span>
+          {FLAVORS.map(f => (
+            <button
+              key={f.id}
+              onClick={() => setActiveFlavor(f.id)}
+              className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
+                activeFlavor === f.id
+                  ? 'bg-accent text-accent-foreground border-accent'
+                  : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
+              }`}
+            >
+              <span>{f.emoji}</span>
+              {f.label}
+            </button>
+          ))}
+        </motion.div>
+
         <p className="text-xs text-muted-foreground mb-6">
           Prikazano <span className="font-semibold text-foreground">{filtered.length}</span> proizvoda
         </p>
