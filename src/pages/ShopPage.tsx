@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PRODUCTS, CATEGORIES } from '@/lib/products';
+import { PRODUCTS, CATEGORIES, FLAVORS } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
 import Footer from '@/components/Footer';
 
 export default function ShopPage() {
   const [activeCat, setActiveCat] = useState('all');
+  const [activeFlavor, setActiveFlavor] = useState('all-flavors');
   const [maxPrice, setMaxPrice] = useState(25);
 
   const filtered = PRODUCTS.filter(p => {
     const catOk = activeCat === 'all' || p.cats.includes(activeCat);
-    return catOk && p.price <= maxPrice;
+    const flavorOk = activeFlavor === 'all-flavors' || p.flavors.includes(activeFlavor);
+    return catOk && flavorOk && p.price <= maxPrice;
   });
 
   return (
@@ -65,6 +67,30 @@ export default function ShopPage() {
             />
             <span className="font-semibold text-foreground">{maxPrice}€</span>
           </div>
+        </motion.div>
+
+        {/* Flavor filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="flex items-center gap-2 flex-wrap mb-8"
+        >
+          <span className="text-xs font-semibold text-muted-foreground mr-1">Ukus:</span>
+          {FLAVORS.map(f => (
+            <button
+              key={f.id}
+              onClick={() => setActiveFlavor(f.id)}
+              className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
+                activeFlavor === f.id
+                  ? 'bg-accent text-accent-foreground border-accent'
+                  : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
+              }`}
+            >
+              <span>{f.emoji}</span>
+              {f.label}
+            </button>
+          ))}
         </motion.div>
 
         <p className="text-xs text-muted-foreground mb-6">
