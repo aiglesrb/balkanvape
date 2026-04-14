@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PRODUCTS, CATEGORIES } from '@/lib/products';
+import { PRODUCTS, CATEGORIES, FLAVORS } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
 import Footer from '@/components/Footer';
 
