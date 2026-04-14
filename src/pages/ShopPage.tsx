@@ -6,11 +6,13 @@ import Footer from '@/components/Footer';
 
 export default function ShopPage() {
   const [activeCat, setActiveCat] = useState('all');
+  const [activeFlavor, setActiveFlavor] = useState('all-flavors');
   const [maxPrice, setMaxPrice] = useState(25);
 
   const filtered = PRODUCTS.filter(p => {
     const catOk = activeCat === 'all' || p.cats.includes(activeCat);
-    return catOk && p.price <= maxPrice;
+    const flavorOk = activeFlavor === 'all-flavors' || p.flavors.includes(activeFlavor);
+    return catOk && flavorOk && p.price <= maxPrice;
   });
 
   return (
