@@ -19,7 +19,7 @@ export default function Navbar() {
     <>
       <nav className="fixed top-[34px] left-0 right-0 z-50 h-14 flex items-center px-6 md:px-10 bg-background/80 backdrop-blur-xl border-b border-border">
         <Link to="/" className="text-base font-bold tracking-tight shrink-0 mr-10">
-          VAPE BALKAN
+          BALKAN VAPE
         </Link>
 
         <ul className="hidden md:flex items-center gap-8 flex-1 list-none">

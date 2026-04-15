@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pb-10 border-b border-border">
             <div className="col-span-2 md:col-span-1">
-              <div className="text-sm font-bold tracking-tight mb-3">VAPE BALKAN</div>
+              <div className="text-sm font-bold tracking-tight mb-3"><div className="text-sm font-bold tracking-tight mb-3">BALKAN VAPE</div></div>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Premium vape experience for the Serbian market. Authentic products, fast delivery.
               </p>
