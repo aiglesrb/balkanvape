@@ -20,7 +20,7 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-0 px-6 lg:px-16 py-20 overflow-hidden">
+    <section ref={ref} className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-0 px-6 lg:px-16 py-24 overflow-hidden bg-background">
       {/* Text - Left side */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
