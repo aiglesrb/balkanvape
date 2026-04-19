@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { LogOut, ShoppingBag, User as UserIcon } from 'lucide-react';
+import { Eye, EyeOff, Lock, LogOut, Mail, ShoppingBag, User as UserIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { lovable } from '@/integrations/lovable';
@@ -16,7 +16,13 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [signingIn, setSigningIn] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const [tab, setTab] = useState<'login' | 'register'>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [showPass, setShowPass] = useState(false);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -47,18 +53,51 @@ export default function ProfilePage() {
   };
 
   const handleGoogle = async () => {
-    setSigningIn(true);
+    setBusy(true);
     const result = await lovable.auth.signInWithOAuth('google', {
       redirect_uri: window.location.origin + '/profile',
     });
     if (result.error) {
-      toast.error('Greška pri prijavi: ' + result.error.message);
-      setSigningIn(false);
+      toast.error('Greška: ' + result.error.message);
+      setBusy(false);
       return;
     }
     if (result.redirected) return;
     toast.success('Dobrodošli!');
-    setSigningIn(false);
+    setBusy(false);
+  };
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return toast.error('Unesite email i lozinku');
+    setBusy(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setBusy(false);
+    if (error) return toast.error('Pogrešan email ili lozinka');
+    toast.success('Dobrodošli nazad!');
+  };
+
+  const handleEmailRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password || !name) return toast.error('Popunite sva polja');
+    if (password.length < 6) return toast.error('Lozinka mora imati minimum 6 karaktera');
+    setBusy(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/profile`,
+        data: { full_name: name },
+      },
+    });
+    setBusy(false);
+    if (error) {
+      if (error.message.includes('already registered')) toast.error('Email je već registrovan');
+      else toast.error('Greška: ' + error.message);
+      return;
+    }
+    toast.success('Nalog kreiran! Proverite email za potvrdu.');
+    setTab('login');
   };
 
   const handleSignOut = async () => {
@@ -120,25 +159,102 @@ export default function ProfilePage() {
           </div>
         ) : (
           <div>
-            <h2 className="text-2xl font-extrabold tracking-tight mb-1">Dobrodošli</h2>
-            <p className="text-sm text-muted-foreground mb-7">Prijavite se da pratite vaše porudžbine</p>
+            {/* Tab switcher */}
+            <div className="flex gap-1 bg-card rounded-lg p-1 mb-7">
+              {(['login', 'register'] as const).map(t => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className={`flex-1 font-mono text-[0.62rem] font-bold tracking-widest uppercase py-2 rounded-md text-center transition-all ${
+                    tab === t ? 'bg-primary/16 text-primary border border-primary/28' : 'text-muted-foreground border border-transparent'
+                  }`}
+                >
+                  {t === 'login' ? 'Prijava' : 'Registracija'}
+                </button>
+              ))}
+            </div>
 
+            <h2 className="text-2xl font-extrabold tracking-tight mb-1">
+              {tab === 'login' ? 'Dobrodošli nazad' : 'Kreiraj nalog'}
+            </h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              {tab === 'login' ? 'Prijavite se i pratite vaše porudžbine' : 'Brz proces — pratite porudžbine i istoriju'}
+            </p>
+
+            {/* Google */}
             <button
               onClick={handleGoogle}
-              disabled={signingIn}
-              className="w-full flex items-center justify-center gap-3 py-3.5 rounded-lg bg-card border border-border text-foreground font-medium hover:border-foreground/30 hover:bg-foreground/[0.04] transition-colors disabled:opacity-60"
+              disabled={busy}
+              className="w-full flex items-center justify-center gap-3 py-3.5 rounded-lg bg-card border border-border text-foreground font-medium hover:border-foreground/30 hover:bg-foreground/[0.04] transition-colors disabled:opacity-60 mb-5"
             >
               <GoogleIcon />
-              {signingIn ? 'Povezivanje...' : 'Nastavi sa Google'}
+              Nastavi sa Google
             </button>
 
-            <p className="mt-6 text-center font-mono text-[0.58rem] tracking-widest uppercase text-muted-foreground">
-              Sigurna prijava · Bez lozinke
+            <div className="flex items-center gap-4 my-5 font-mono text-[0.58rem] tracking-widest uppercase text-muted-foreground">
+              <div className="flex-1 h-px bg-border" />
+              ili sa email
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
+            <form onSubmit={tab === 'login' ? handleEmailLogin : handleEmailRegister}>
+              {tab === 'register' && (
+                <Field icon={<UserIcon size={15} />} label="Ime i prezime" value={name} onChange={setName} placeholder="Marko Petrović" />
+              )}
+              <Field icon={<Mail size={15} />} label="Email" type="email" value={email} onChange={setEmail} placeholder="vase@email.com" />
+              <div className="mb-5">
+                <label className="block font-mono text-[0.58rem] tracking-widest uppercase text-muted-foreground mb-2">Lozinka</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 opacity-[0.38] pointer-events-none"><Lock size={15} /></span>
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder={tab === 'register' ? 'Min. 6 karaktera' : '••••••••'}
+                    className="w-full bg-card border border-border text-foreground font-display text-sm py-3.5 pl-11 pr-12 rounded-lg outline-none transition-all focus:border-primary/55 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.12)] placeholder:text-muted-foreground placeholder:text-xs"
+                  />
+                  <button type="button" onClick={() => setShowPass(s => !s)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1">
+                    {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={busy}
+                className="w-full py-3.5 rounded-lg bg-gradient-to-br from-primary to-[#6a00ff] text-primary-foreground font-bold hover:opacity-90 transition-all disabled:opacity-60"
+              >
+                {busy ? 'Sačekajte...' : tab === 'login' ? 'Prijavi se' : 'Kreiraj nalog'}
+              </button>
+            </form>
+
+            <p className="mt-5 text-center font-mono text-[0.58rem] tracking-widest uppercase text-muted-foreground">
+              Sigurna prijava
             </p>
           </div>
         )}
       </motion.div>
     </main>
+  );
+}
+
+function Field({ icon, label, type = 'text', value, onChange, placeholder }: {
+  icon: React.ReactNode; label: string; type?: string; value: string; onChange: (v: string) => void; placeholder: string;
+}) {
+  return (
+    <div className="mb-4">
+      <label className="block font-mono text-[0.58rem] tracking-widest uppercase text-muted-foreground mb-2">{label}</label>
+      <div className="relative">
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 opacity-[0.38] pointer-events-none">{icon}</span>
+        <input
+          type={type}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="w-full bg-card border border-border text-foreground font-display text-sm py-3.5 pl-11 pr-4 rounded-lg outline-none transition-all focus:border-primary/55 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.12)] placeholder:text-muted-foreground placeholder:text-xs"
+        />
+      </div>
+    </div>
   );
 }
 
