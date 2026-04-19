@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PRODUCTS, CATEGORIES, FLAVORS } from '@/lib/products';
+import { PRODUCTS, CATEGORIES } from '@/lib/products';
+import { FLAVORS, FLAVOR_CATEGORIES } from '@/lib/flavors';
 import ProductCard from '@/components/ProductCard';
+import FlavorCard from '@/components/FlavorCard';
 import Footer from '@/components/Footer';
 
-export default function ShopPage() {
-  const [activeCat, setActiveCat] = useState('all');
-  const [activeFlavor, setActiveFlavor] = useState('all-flavors');
-  const [maxPrice, setMaxPrice] = useState(25);
+type View = 'devices' | 'flavors';
 
-  const filtered = PRODUCTS.filter(p => {
-    const catOk = activeCat === 'all' || p.cats.includes(activeCat);
-    const flavorOk = activeFlavor === 'all-flavors' || p.flavors.includes(activeFlavor);
-    return catOk && flavorOk && p.price <= maxPrice;
-  });
+export default function ShopPage() {
+  const [view, setView] = useState<View>('flavors');
+  const [activeCat, setActiveCat] = useState('all');
+  const [activeFlavorCat, setActiveFlavorCat] = useState<string>('all');
+
+  const filteredDevices = PRODUCTS.filter(p => activeCat === 'all' || p.cats.includes(activeCat));
+  const filteredFlavors = FLAVORS.filter(f => activeFlavorCat === 'all' || f.category === activeFlavorCat);
 
   return (
     <main className="pt-[calc(3.5rem+2rem)]">
-      <div className="px-6 py-14 max-w-5xl mx-auto">
+      <div className="px-6 py-14 max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Prodavnica</h1>
           <p className="text-muted-foreground text-sm mb-8">Svi modeli i ukusi na jednom mestu.</p>
@@ -37,74 +38,105 @@ export default function ShopPage() {
           <span className="text-xs font-semibold text-accent uppercase tracking-wider">Automatski</span>
         </motion.div>
 
-        {/* Filters */}
+        {/* View switcher: Devices vs Flavors */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex items-center gap-3 flex-wrap mb-8"
+          transition={{ delay: 0.08 }}
+          className="inline-flex p-1 bg-secondary rounded-full mb-6"
         >
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCat(cat.id)}
-              className={`text-xs font-medium px-4 py-2 rounded-full border transition-all ${
-                activeCat === cat.id
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-
-          <div className="flex items-center gap-2 ml-auto text-xs text-muted-foreground">
-            <span>Max:</span>
-            <input
-              type="range" min={1} max={25} value={maxPrice} step={1}
-              onChange={e => setMaxPrice(Number(e.target.value))}
-              className="w-20 accent-foreground cursor-pointer"
-            />
-            <span className="font-semibold text-foreground">{maxPrice}€</span>
-          </div>
+          <button
+            onClick={() => setView('flavors')}
+            className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${
+              view === 'flavors' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            🍓 Ukusi ({FLAVORS.length})
+          </button>
+          <button
+            onClick={() => setView('devices')}
+            className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${
+              view === 'devices' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            💨 Uređaji ({PRODUCTS.length})
+          </button>
         </motion.div>
 
-        {/* Flavor filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="flex items-center gap-2 flex-wrap mb-8"
-        >
-          <span className="text-xs font-semibold text-muted-foreground mr-1">Ukus:</span>
-          {FLAVORS.map(f => (
-            <button
-              key={f.id}
-              onClick={() => setActiveFlavor(f.id)}
-              className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
-                activeFlavor === f.id
-                  ? 'bg-accent text-accent-foreground border-accent'
-                  : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
-              }`}
-            >
-              <span>{f.emoji}</span>
-              {f.label}
-            </button>
-          ))}
-        </motion.div>
+        {/* Flavor category tabs */}
+        {view === 'flavors' && (
+          <motion.div
+            key="flavor-tabs"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2 flex-wrap mb-8 overflow-x-auto"
+          >
+            {FLAVOR_CATEGORIES.map(cat => {
+              const count = cat.id === 'all' ? FLAVORS.length : FLAVORS.filter(f => f.category === cat.id).length;
+              const active = activeFlavorCat === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveFlavorCat(cat.id)}
+                  className={`flex items-center gap-1.5 text-xs font-medium px-4 py-2 rounded-full border transition-all whitespace-nowrap ${
+                    active
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
+                  }`}
+                >
+                  <span>{cat.emoji}</span>
+                  {cat.label}
+                  <span className={`text-[10px] ${active ? 'opacity-80' : 'opacity-60'}`}>({count})</span>
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+
+        {/* Device category tabs */}
+        {view === 'devices' && (
+          <motion.div
+            key="device-tabs"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2 flex-wrap mb-8"
+          >
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCat(cat.id)}
+                className={`text-xs font-medium px-4 py-2 rounded-full border transition-all ${
+                  activeCat === cat.id
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'bg-background border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
 
         <p className="text-xs text-muted-foreground mb-6">
-          Prikazano <span className="font-semibold text-foreground">{filtered.length}</span> proizvoda
+          Prikazano <span className="font-semibold text-foreground">
+            {view === 'flavors' ? filteredFlavors.length : filteredDevices.length}
+          </span> {view === 'flavors' ? 'ukusa' : 'proizvoda'}
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
-        </div>
+        {view === 'flavors' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {filteredFlavors.map((f, i) => <FlavorCard key={f.id} flavor={f} index={i} />)}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredDevices.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+          </div>
+        )}
 
-        {filtered.length === 0 && (
+        {((view === 'flavors' && filteredFlavors.length === 0) || (view === 'devices' && filteredDevices.length === 0)) && (
           <div className="text-center py-20 text-muted-foreground">
             <div className="text-4xl mb-4">🔍</div>
-            <p className="font-semibold">Nema proizvoda za odabrane filtere</p>
+            <p className="font-semibold">Nema rezultata za odabranu kategoriju</p>
           </div>
         )}
       </div>
